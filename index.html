@@ -3,9 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/main.css" />
     <title>Weather App Widget</title>
   </head>
   <body>
-    <div class="app"></div>
+    <div id="app">
+      <div class="container">
+        <header>
+          <div class="notification">Notification here</div>
+          <input
+            type="text"
+            autocomplete="off"
+            class="search-box"
+            placeholder="Search for a city..."
+          />
+        </header>
+        <main>
+          <section class="location">
+            <div class="city">Oran, Algeria</div>
+            <div class="date">Monday 78 July 2028</div>
+          </section>
+          <section class="current">
+            <div class="icon">
+              <img src="./assets/unknown.png" />
+            </div>
+            <div class="temperature">42 <span>°C</span></div>
+            <div class="min-max">
+              <span class="min">23°C/ </span>
+              <span class="max">33°C</span>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
   </body>
 </html>
