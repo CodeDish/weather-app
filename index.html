@@ -4,19 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+      integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA=="
+      crossorigin="anonymous"
+    />
     <title>Weather App Widget</title>
   </head>
   <body>
     <div id="app">
       <div class="container">
         <header>
-          <div class="notification">Notification here</div>
-          <input
-            type="text"
-            autocomplete="off"
-            class="search-box"
-            placeholder="Search for a city..."
-          />
+          <div class="notification">
+            <p>Notification</p>
+          </div>
+          <form>
+            <input
+              type="text"
+              autocomplete="off"
+              class="search-box"
+              placeholder="Search for a city..."
+            />
+            <button>
+              <i class="fas fa-location-arrow"></i>
+            </button>
+          </form>
         </header>
         <main>
           <section class="location">
@@ -36,5 +49,7 @@
         </main>
       </div>
     </div>
+
+    <script src="./main.js"></script>
   </body>
 </html>

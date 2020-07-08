@@ -1,17 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap");
 
+// Colors
+$blue: #0d9de3;
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
-}
-
-body {
-    background-image: url("/assets/bg.jpg");
-    background-position: center;
-    background-size: cover;
-    text-align: center;
 }
 
 #app {
@@ -25,30 +21,53 @@ body {
 
 .container {
     width: 310px;
-    height: 450px;
+    height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: $blue;
+    text-align: center;
+    border-radius: 10px;
 
     header {
         & > * {
             margin-bottom: 20px;
         }
-        .notification {
-            color: orangered;
-            font-weight: 500;
-        }
-        .search-box {
+        form {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
             width: 250px;
-            padding: 8px 10px;
-            outline: none;
-            border: none;
             border-radius: 5px;
+            background-color: white;
+
+            .search-box {
+                width: 100%;
+                height: 100%;
+                padding: 8px 10px;
+                background: transparent;
+                outline: none;
+                border: none;
+            }
+
+            button {
+                border: none;
+                background: transparent;
+                cursor: pointer;
+            }
+            .fa-location-arrow {
+                padding: 10px;
+                color: $blue;
+            }
         }
     }
 
     main > section > * {
         margin-bottom: 20px;
     }
+}
+
+.notification {
+    font-weight: bold;
 }

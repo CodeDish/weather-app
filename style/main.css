@@ -7,13 +7,6 @@
   font-family: "Poppins", sans-serif;
 }
 
-body {
-  background-image: url("/assets/bg.jpg");
-  background-position: center;
-  background-size: cover;
-  text-align: center;
-}
-
 #app {
   width: 100%;
   min-height: 100vh;
@@ -34,7 +27,7 @@ body {
 
 .container {
   width: 310px;
-  height: 450px;
+  height: 500px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -48,26 +41,54 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  background-color: #0d9de3;
+  text-align: center;
+  border-radius: 10px;
 }
 
 .container header > * {
   margin-bottom: 20px;
 }
 
-.container header .notification {
-  color: orangered;
-  font-weight: 500;
+.container header form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 250px;
+  border-radius: 5px;
+  background-color: white;
 }
 
-.container header .search-box {
-  width: 250px;
+.container header form .search-box {
+  width: 100%;
+  height: 100%;
   padding: 8px 10px;
+  background: transparent;
   outline: none;
   border: none;
-  border-radius: 5px;
+}
+
+.container header form button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.container header form .fa-location-arrow {
+  padding: 10px;
+  color: #0d9de3;
 }
 
 .container main > section > * {
   margin-bottom: 20px;
+}
+
+.notification {
+  font-weight: bold;
 }
 /*# sourceMappingURL=main.css.map */
