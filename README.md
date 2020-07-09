@@ -15,7 +15,7 @@ Weather App that shows the local weather and also the city you search for.
 
 <img src="./assets/screenshot1.png">
 
-### <a href="https://codedish.github.io/figo-restaurant/.">Live Demo</a>
+### <a href="https://codedish.github.io/weather-app/">Live Demo</a>
 
 ## Fork
 
