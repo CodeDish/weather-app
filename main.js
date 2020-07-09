@@ -1,50 +1,93 @@
-// // General UI Variables
-// const notification = document.querySelector(".notification");
-// const searchBox = document.querySelector(".search-box");
-// const city = document.querySelector(".city");
-// const country = document.querySelector(".country");
-// const currentDate = document.querySelector(".date");
-// const icon = document.querySelector(".icon");
-// const temperature = document.querySelector(".temperature");
-// const minTemp = document.querySelector(".min");
-// const maxTemp = document.querySelector(".max");
+// General UI Variables
+const notification = document.querySelector(".notification");
+const searchBox = document.querySelector(".search-box");
+const city = document.querySelector(".city");
+const country = document.querySelector(".country");
+const currentDate = document.querySelector(".date");
+const icon = document.querySelector(".icon");
+const temperature = document.querySelector(".temperature");
+const tempDescription = document.querySelector(".temp-description");
+const minTemp = document.querySelector(".min");
+const maxTemp = document.querySelector(".max");
+const geolocationBtn = document.querySelector(".geolocation-btn");
 
-// // Current Time
-// const time = new Date();
-// currentDate.innerHTML = `<p>${time.toDateString()}</p>`;
+// Essentials
+const key = "16955d729b3c76913ae62114164ca0d7";
 
-// // Get User Geolocation Position on Load
-// document.addEventListener("DOMContentLoaded", () => {
-//   if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(getPosition, displayError);
-//   } else {
-//     notification.style.display = "block";
-//     notification.innerHTML = "<p>Browser Doesn't Support Geolocation</p>";
-//   }
-// });
+// Current Time
+const time = new Date();
+currentDate.innerHTML = `<p>${time.toDateString()}</p>`;
 
-// function getPosition(position) {
-//   let latitude = position.coords.latitude;
-//   let longitude = position.coords.longitude;
+// Event Listener when clicked on Geolocation Button to get Local Geolocation
+geolocationBtn.addEventListener("click", () => {
+  // Check if browser has geolocation
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getPosition, displayError);
+  } else {
+    // Error if browser doesn't support geolocation
+    notification.style.display = "block";
+    notification.innerHTML = "<p>Browser Doesn't Support Geolocation</p>";
+  }
+});
 
-//   getCurrentWeather(latitude, longitude);
-// }
+// Get the computer geolocation
+function getPosition(position) {
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
 
-// function displayError(error) {
-//   notification.style.display = "block";
-//   notification.innerHTML = `<p>${error.message}</p>`;
-// }
+  // Once coords obtained, fire this function
+  getCurrentWeather(latitude, longitude);
+}
 
-// function getCurrentWeather(latitude, longitude) {
-//   const key = "16955d729b3c76913ae62114164ca0d7";
-//   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric`;
+// In case an error occurs
+function displayError(error) {
+  notification.style.display = "block";
+  notification.innerHTML = `<p>${error.message}</p>`;
+}
 
-//   fetch(url)
-//     .then((response) => {
-//       let data = response.json();
-//       return data;
-//     })
-//     .then((data) => {
-//       console.log(data);
-//     });
-// }
+// Fetched data will be injected in these objects
+const weatherData = {
+  city: {},
+  country: {},
+  temperature: {},
+  tempDescription: {},
+  iconId: {},
+  tempMax: {},
+  tempMin: {},
+};
+
+// Main Function to get Geolocation and Display it on the UI
+function getCurrentWeather(latitude, longitude) {
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric`;
+
+  // Get Data from the API
+  fetch(url)
+    .then((response) => {
+      let data = response.json();
+      return data;
+    })
+    .then((data) => {
+      console.log(data);
+      weatherData.city = data.name;
+      weatherData.country = data.sys.country;
+      weatherData.temperature = Math.floor(data.main.temp);
+      weatherData.tempDescription = data.weather[0].description;
+      weatherData.iconId = data.weather[0].icon;
+      weatherData.minTemp = data.main.temp_min;
+      weatherData.maxTemp = data.main.temp_max;
+    })
+    .then(() => {
+      // Fire this function to display the stored data to the UI
+      displayCurrentWeather();
+    });
+
+  function displayCurrentWeather() {
+    city.innerHTML = `${weatherData.city}, `;
+    country.innerHTML = `${weatherData.country}`;
+    icon.innerHTML = `<img src="./assets/${weatherData.iconId}.svg" />`;
+    temperature.innerHTML = `${weatherData.temperature}<span> C°</span>`;
+    tempDescription.innerHTML = `${weatherData.tempDescription}`;
+    minTemp.innerHTML = `<p>${weatherData.minTemp}</p>`;
+    maxTemp.innerHTML = `<p>${weatherData.maxTemp}</p>`;
+  }
+}
