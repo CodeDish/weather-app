@@ -19,31 +19,41 @@
           <div class="notification">
             <p>Notification</p>
           </div>
-          <form>
+          <div class="form">
             <input
               type="text"
               autocomplete="off"
               class="search-box"
               placeholder="Search for a city..."
             />
-            <button>
+            <button class="geolocation-btn">
               <i class="fas fa-location-arrow"></i>
             </button>
-          </form>
+          </div>
         </header>
         <main>
           <section class="location">
-            <div class="city">Oran, Algeria</div>
-            <div class="date">Monday 78 July 2028</div>
+            <div class="date">-</div>
+            <div>
+              <span class="city"> - </span>
+              <span class="country"> -</span>
+            </div>
           </section>
           <section class="current">
             <div class="icon">
-              <img src="./assets/unknown.png" />
+              <img src="" />
             </div>
-            <div class="temperature">42 <span>°C</span></div>
+            <div class="temperature">- <span>°C</span></div>
+            <div class="temp-description">-</div>
             <div class="min-max">
-              <span class="min">23°C/ </span>
-              <span class="max">33°C</span>
+              <div class="up">
+                <i class="fas fa-long-arrow-alt-down"></i>
+                <span class="min"> - </span>
+              </div>
+              <div class="down">
+                <i class="fas fa-long-arrow-alt-up"></i>
+                <span class="max"> - </span>
+              </div>
             </div>
           </section>
         </main>
