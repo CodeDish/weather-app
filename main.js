@@ -55,7 +55,7 @@ function displayError(error) {
 
 // Main Function to get Geolocation and Display it on the UI
 function getCurrentWeather(latitude, longitude) {
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric`;
+  const url = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric`;
 
   // Get Data from the API
   fetch(url)
@@ -95,7 +95,7 @@ const input = document.querySelector(".input-field");
 // Event Listener on Input
 input.addEventListener("keypress", (e) => {
   // Get Weather from Input
-  const url = `http://api.openweathermap.org/data/2.5/weather?q=${input.value}&appid=${key}&units=metric`;
+  const url = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?q=${input.value}&appid=${key}&units=metric`;
 
   if (e.keyCode === 13) {
     getWeatherForCity();
