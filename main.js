@@ -1,6 +1,5 @@
 // General UI Variables
 const notification = document.querySelector(".notification");
-const searchBox = document.querySelector(".search-box");
 const city = document.querySelector(".city");
 const country = document.querySelector(".country");
 const currentDate = document.querySelector(".date");
@@ -14,19 +13,29 @@ const geolocationBtn = document.querySelector(".geolocation-btn");
 // Essentials
 const key = "16955d729b3c76913ae62114164ca0d7";
 
+// Fetched data will be injected in these objects
+const weatherData = {
+  city: {},
+  country: {},
+  temperature: {},
+  tempDescription: {},
+  iconId: {},
+  tempMax: {},
+  tempMin: {},
+};
+
 // Current Time
 const time = new Date();
 currentDate.innerHTML = `<p>${time.toDateString()}</p>`;
 
 // Event Listener when clicked on Geolocation Button to get Local Geolocation
-geolocationBtn.addEventListener("click", () => {
+geolocationBtn.addEventListener("click", (e) => {
   // Check if browser has geolocation
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getPosition, displayError);
   } else {
     // Error if browser doesn't support geolocation
-    notification.style.display = "block";
-    notification.innerHTML = "<p>Browser Doesn't Support Geolocation</p>";
+    alert("Browser Doesn't Support Geolocation");
   }
 });
 
@@ -41,20 +50,8 @@ function getPosition(position) {
 
 // In case an error occurs
 function displayError(error) {
-  notification.style.display = "block";
-  notification.innerHTML = `<p>${error.message}</p>`;
+  alert(error.message);
 }
-
-// Fetched data will be injected in these objects
-const weatherData = {
-  city: {},
-  country: {},
-  temperature: {},
-  tempDescription: {},
-  iconId: {},
-  tempMax: {},
-  tempMin: {},
-};
 
 // Main Function to get Geolocation and Display it on the UI
 function getCurrentWeather(latitude, longitude) {
@@ -67,14 +64,13 @@ function getCurrentWeather(latitude, longitude) {
       return data;
     })
     .then((data) => {
-      console.log(data);
       weatherData.city = data.name;
       weatherData.country = data.sys.country;
       weatherData.temperature = Math.floor(data.main.temp);
       weatherData.tempDescription = data.weather[0].description;
       weatherData.iconId = data.weather[0].icon;
-      weatherData.minTemp = data.main.temp_min;
-      weatherData.maxTemp = data.main.temp_max;
+      weatherData.minTemp = Math.floor(data.main.temp_min);
+      weatherData.maxTemp = Math.floor(data.main.temp_max);
     })
     .then(() => {
       // Fire this function to display the stored data to the UI
@@ -91,3 +87,51 @@ function getCurrentWeather(latitude, longitude) {
     maxTemp.innerHTML = `<p>${weatherData.maxTemp}</p>`;
   }
 }
+
+// Input Functionality
+
+const input = document.querySelector(".input-field");
+
+// Event Listener on Input
+input.addEventListener("keypress", (e) => {
+  // Get Weather from Input
+  const url = `http://api.openweathermap.org/data/2.5/weather?q=${input.value}&appid=${key}&units=metric`;
+
+  if (e.keyCode === 13) {
+    getWeatherForCity();
+    input.value = "";
+  }
+
+  function getWeatherForCity() {
+    fetch(url)
+      .then((response) => {
+        let data = response.json();
+        return data;
+      })
+      .then((data) => {
+        weatherData.city = data.name;
+        weatherData.country = data.sys.country;
+        weatherData.temperature = Math.floor(data.main.temp);
+        weatherData.tempDescription = data.weather[0].description;
+        weatherData.iconId = data.weather[0].icon;
+        weatherData.minTemp = Math.floor(data.main.temp_min);
+        weatherData.maxTemp = Math.floor(data.main.temp_max);
+      })
+      .then(() => {
+        getCityWeather();
+      })
+      .catch(() => {
+        alert("Please enter a valid city name.");
+      });
+
+    function getCityWeather() {
+      city.innerHTML = `${weatherData.city}, `;
+      country.innerHTML = `${weatherData.country}`;
+      icon.innerHTML = `<img src="./assets/${weatherData.iconId}.svg" />`;
+      temperature.innerHTML = `${weatherData.temperature}<span> C°</span>`;
+      tempDescription.innerHTML = `${weatherData.tempDescription}`;
+      minTemp.innerHTML = `<p>${weatherData.minTemp}</p>`;
+      maxTemp.innerHTML = `<p>${weatherData.maxTemp}</p>`;
+    }
+  }
+});
