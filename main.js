@@ -128,7 +128,7 @@ input.addEventListener("keypress", (e) => {
       city.innerHTML = `${weatherData.city}, `;
       country.innerHTML = `${weatherData.country}`;
       icon.innerHTML = `<img src="./assets/${weatherData.iconId}.svg" />`;
-      temperature.innerHTML = `${weatherData.temperature}<span> C°</span>`;
+      temperature.innerHTML = `${weatherData.temperature}<span>°C</span>`;
       tempDescription.innerHTML = `${weatherData.tempDescription}`;
       minTemp.innerHTML = `<p>${weatherData.minTemp}</p>`;
       maxTemp.innerHTML = `<p>${weatherData.maxTemp}</p>`;
